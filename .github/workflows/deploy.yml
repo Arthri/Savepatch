@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        rid: ["win-x86", "win-x64", "win-arm64", "linux-x64", "linux-arm", "linux-arm64", "osx-x64", "osx-arm64"]
+    timeout-minutes: 2
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        id: setup-dotnet
+        uses: actions/setup-dotnet@v4
+
+      - name: Build & Pack Project
+        id: build
+        run: dotnet publish -c Release --sc false -r ${{ matrix.rid }}
+
+      - name: Upload Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: Binaries (${{ matrix.rid }})
+          path: |
+            src/Savepatch/bin/Release/net8.0/${{ matrix.rid }}/publish/**/*
