@@ -5,11 +5,23 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.context.runs-on }}
     strategy:
       fail-fast: false
       matrix:
-        rid: ["win-x64", "win-arm64", "linux-x64", "linux-arm64", "osx-x64", "osx-arm64"]
+        context:
+          - runs-on: windows-2022
+            rid: win-x64
+          - runs-on: windows-2022
+            rid: win-arm64
+          - runs-on: ubuntu-22.04
+            rid: linux-x64
+          - runs-on: ubuntu-22.04
+            rid: linux-arm64
+          - runs-on: macos-15
+            rid: osx-x64
+          - runs-on: macos-15
+            rid: osx-arm64
     timeout-minutes: 2
 
     steps:
@@ -22,11 +34,11 @@ jobs:
 
       - name: Build & Pack Project
         id: build
-        run: dotnet publish -c Release --sc false -r ${{ matrix.rid }}
+        run: dotnet publish -c Release --sc false -r ${{ matrix.context.rid }}
 
       - name: Upload Output
         uses: actions/upload-artifact@v4
         with:
-          name: Binaries (${{ matrix.rid }})
+          name: Binaries (${{ matrix.context.rid }})
           path: |
-            src/Savepatch/bin/Release/net8.0/${{ matrix.rid }}/publish/**/*
+            src/Savepatch/bin/Release/net8.0/${{ matrix.context.rid }}/publish/**/*
