@@ -47,7 +47,7 @@ jobs:
       - name: Setup Environment
         if: ${{ matrix.context.rid == 'linux-arm64' }}
         run: |
-          sudo apt install gcc-multilib binutils-aarch64-linux-gnu
+          sudo apt-get install -y gcc-multilib binutils-aarch64-linux-gnu
 
       - name: Build & Pack Project
         id: build
@@ -65,6 +65,7 @@ jobs:
         env:
           ARCHIVE_NAME: ${{ matrix.context.display-name }}
           RELEASE_TAG: ${{ inputs.release }}
+          RID: ${{ matrix.context.rid }}
         run: |
-          tar -czf "$ARCHIVE_NAME" -C src/Savepatch/bin/Release/net8.0/${{ matrix.context.rid }}/publish .
+          tar -czf "$ARCHIVE_NAME" -C "src/Savepatch/bin/Release/net8.0/$RID/publish" .
           gh release upload "$RELEASE_TAG" "$ARCHIVE_NAME"
