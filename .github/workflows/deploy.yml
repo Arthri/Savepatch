@@ -32,6 +32,11 @@ jobs:
         id: setup-dotnet
         uses: actions/setup-dotnet@v4
 
+      - name: Setup Environment
+        if: ${{ matrix.context.rid == 'linux-arm64' }}
+        run: |
+          sudo apt-get install -y binutils-aarch64-linux-gnu
+
       - name: Build & Pack Project
         id: build
         run: dotnet publish -c Release --sc false -r ${{ matrix.context.rid }}
