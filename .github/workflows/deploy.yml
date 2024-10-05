@@ -67,5 +67,5 @@ jobs:
           RELEASE_TAG: ${{ inputs.release }}
           RID: ${{ matrix.context.rid }}
         run: |
-          tar -czf "$ARCHIVE_NAME" -C "src/Savepatch/bin/Release/net8.0/$RID/publish" .
-          gh release upload "$RELEASE_TAG" "$ARCHIVE_NAME"
+          tar -czf "$ARCHIVE_NAME.tar.gz" -C "src/Savepatch/bin/Release/net8.0/$RID/publish" .
+          gh release upload "$RELEASE_TAG" "$ARCHIVE_NAME.tar.gz"
