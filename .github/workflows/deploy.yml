@@ -47,7 +47,7 @@ jobs:
       - name: Setup Environment
         if: ${{ matrix.context.rid == 'linux-arm64' }}
         run: |
-          sudo apt-get install -y binutils-aarch64-linux-gnu
+          sudo apt install gcc-multilib binutils-aarch64-linux-gnu
 
       - name: Build & Pack Project
         id: build
