@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Build Configuration -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <PublishAot>true</PublishAot>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+
+
+  <!-- Compiler Configuration-->
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+
+  <!-- Dependencies -->
+  <ItemGroup>
+    <PackageReference Include="AsmResolver" Version="5.5.1" />
+    <PackageReference Include="AsmResolver.DotNet" Version="5.5.1" />
+    <PackageReference Include="AsmResolver.PE" Version="5.5.1" />
+    <PackageReference Include="AsmResolver.PE.File" Version="5.5.1" />
+  </ItemGroup>
+
+</Project>
