@@ -8,6 +8,10 @@ on:
         required: false
         type: string
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   deploy:
     name: ${{ matrix.context.display-name }}
