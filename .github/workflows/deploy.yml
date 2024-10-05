@@ -11,6 +11,8 @@ on:
 jobs:
   deploy:
     name: ${{ matrix.context.display-name }}
+    permissions:
+      contents: write
     runs-on: ${{ matrix.context.runs-on }}
     strategy:
       fail-fast: false
@@ -73,6 +75,7 @@ jobs:
         if: ${{ inputs.release != '' }}
         env:
           ARCHIVE_NAME: ${{ matrix.context.display-name }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_TAG: ${{ inputs.release }}
           RID: ${{ matrix.context.rid }}
         run: |
